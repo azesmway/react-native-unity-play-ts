@@ -1,26 +1,26 @@
-import {
-  requireNativeComponent,
-  UIManager,
-  Platform,
-  ViewStyle,
-} from 'react-native';
+import React from 'react';
+import { requireNativeComponent } from 'react-native';
 
-const LINKING_ERROR =
-  `The package 'react-native-unity-play-ts' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
-
-type UnityPlayTsProps = {
-  color: string;
-  style: ViewStyle;
-};
+type UnityPlayTsProps = {};
 
 const ComponentName = 'UnityPlayTsView';
 
-export const UnityPlayTsView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<UnityPlayTsProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+const UnityPlayTsView = requireNativeComponent<UnityPlayTsProps>(ComponentName);
+
+export default class UnityPlayView extends React.Component<UnityPlayTsProps> {
+  static defaultProps = {};
+
+  constructor(props: any) {
+    super(props);
+  }
+
+  private getProps() {
+    return {
+      ...this.props,
+    };
+  }
+
+  public render() {
+    return <UnityPlayTsView {...this.getProps()} />;
+  }
+}
