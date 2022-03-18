@@ -1,5 +1,10 @@
 import React from 'react';
-import { requireNativeComponent } from 'react-native';
+import {
+  requireNativeComponent,
+  UIManager,
+  findNodeHandle,
+  Platform,
+} from 'react-native';
 
 type UnityPlayTsProps = {};
 
@@ -12,6 +17,22 @@ export default class UnityPlayView extends React.Component<UnityPlayTsProps> {
 
   constructor(props: any) {
     super(props);
+  }
+
+  public initUnity() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this),
+      this.getCommand('initUnity'),
+      []
+    );
+  }
+
+  private getCommand(cmd: string): any {
+    if (Platform.OS === 'ios') {
+      return UIManager.getViewManagerConfig('UnityPlayTsView').Commands[cmd];
+    } else {
+      return cmd;
+    }
   }
 
   private getProps() {
