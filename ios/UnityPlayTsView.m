@@ -6,7 +6,7 @@ char** gArgv = NULL;
 NSDictionary* appLaunchOpts;
 
 @interface UnityPlayTsView ()<UnityFrameworkListener>
-@property UnityFramework* ufw;
+@property UnityFramework* unityFramework;
 @end
 
 @implementation UnityPlayTsView
@@ -18,8 +18,19 @@ NSDictionary* appLaunchOpts;
   return self;
 }
 
-UnityFramework* UnityFrameworkLoad()
+- (bool)unityIsInitialized
 {
+    return [self unityFramework] && [[self unityFramework] appController];
+}
+
+- (void)initUnity:(CGRect)bounds
+{
+    if([self unityIsInitialized])
+    {
+        NSLog(@"Unity already initialized, Unload Unity first");
+        return;
+    }
+
     NSString* bundlePath = nil;
     bundlePath = [[NSBundle mainBundle] bundlePath];
     bundlePath = [bundlePath stringByAppendingString: @"/Frameworks/UnityFramework.framework"];
@@ -28,34 +39,29 @@ UnityFramework* UnityFrameworkLoad()
     if ([bundle isLoaded] == false) [bundle load];
 
     UnityFramework* ufw = [bundle.principalClass getInstance];
+    [self setUnityFramework: ufw];
     if (![ufw appController])
     {
         // unity is not initialized
         [ufw setExecuteHeader: &_mh_execute_header];
     }
-    return ufw;
+
+    [ufw setDataBundleId: [bundle.bundleIdentifier cStringUsingEncoding:NSUTF8StringEncoding]];
+    [ufw registerFrameworkListener: self];
+    [ufw runEmbeddedWithArgc: gArgc argv:[self getArray] appLaunchOpts: appLaunchOpts];
+    [[ufw appController] window].frame = bounds;
+    [self addSubview:[[ufw appController] window]];
 }
 
-- (void)initUnity
+- (void)dealloc
 {
-    [self setUfw: UnityFrameworkLoad()];
-    [[self ufw] setDataBundleId: "com.unity3d.framework"];
-    [[self ufw] registerFrameworkListener: self];
-    [[self ufw] runEmbeddedWithArgc: gArgc argv:[self getArray] appLaunchOpts: appLaunchOpts];
-}
-
-- (void)unloadUnity
-{
-    UIWindow * main = [[[UIApplication sharedApplication] delegate] window];
-    if(main != nil) {
-        [main makeKeyAndVisible];
-        [[self ufw] unloadApplication];
-    }
+    [[self unityFramework] unloadApplication];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    [self initUnity:self.bounds];
 }
 
 - (char**)getArray

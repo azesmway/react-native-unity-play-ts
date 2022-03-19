@@ -5,7 +5,4 @@
 
 @interface UnityPlayTsView : RCTView <RCTBridgeModule>
 
-- (void)initUnity;
-- (void)unloadUnity;
-
 @end

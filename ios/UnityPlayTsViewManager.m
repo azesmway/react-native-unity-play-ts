@@ -20,29 +20,7 @@ RCT_EXPORT_MODULE(UnityPlayTsView)
 
 + (BOOL)requiresMainQueueSetup
 {
-    return NO;
-}
-
-RCT_EXPORT_METHOD(initUnity:(nonnull NSNumber*) reactTag) {
-    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
-        UnityPlayTsView *view = (UnityPlayTsView*) viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[UnityPlayTsView class]]) {
-            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
-            return;
-        }
-        [view initUnity];
-    }];
-}
-
-RCT_EXPORT_METHOD(unloadUnity:(nonnull NSNumber*) reactTag) {
-    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
-        UnityPlayTsView *view = (UnityPlayTsView*) viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[UnityPlayTsView class]]) {
-            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
-            return;
-        }
-        [view unloadUnity];
-    }];
+    return YES;
 }
 
 @end
