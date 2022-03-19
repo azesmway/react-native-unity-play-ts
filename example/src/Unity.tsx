@@ -1,16 +1,3 @@
-# react-native-unity-play-ts
-
-react-native-unity-play-ts
-
-## Installation
-
-```sh
-npm install react-native-unity-play-ts
-```
-
-## Usage
-
-```js
 import React, { useRef, useEffect } from 'react';
 import UnityPlayView from 'react-native-unity-play-ts';
 
@@ -40,13 +27,3 @@ const Unity = () => {
 };
 
 export default Unity;
-
-```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
