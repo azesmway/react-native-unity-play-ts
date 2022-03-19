@@ -32,4 +32,10 @@ NSDictionary* appLaunchOpts;
     }
 }
 
++ (void)UnityPostMessage:(NSString*)gameObject methodName:(NSString*)methodName message:(NSString*) message {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UnityPlayTs ufw] sendMessageToGOWithName:[gameObject UTF8String] functionName:[methodName UTF8String] message:[message UTF8String]];
+    });
+}
+
 @end

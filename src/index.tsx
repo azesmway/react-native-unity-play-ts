@@ -19,19 +19,11 @@ export default class UnityPlayView extends React.Component<UnityPlayTsProps> {
     super(props);
   }
 
-  public initUnity() {
+  public postMessage(gameObject: string, methodName: string, message: string) {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this),
-      this.getCommand('initUnity'),
-      []
-    );
-  }
-
-  public unloadUnity() {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this),
-      this.getCommand('unloadUnity'),
-      []
+      this.getCommand('postMessage'),
+      [gameObject, methodName, message]
     );
   }
 
