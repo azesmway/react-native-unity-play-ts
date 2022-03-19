@@ -27,6 +27,14 @@ export default class UnityPlayView extends React.Component<UnityPlayTsProps> {
     );
   }
 
+  public unloadUnity() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this),
+      this.getCommand('unloadUnity'),
+      []
+    );
+  }
+
   private getCommand(cmd: string): any {
     if (Platform.OS === 'ios') {
       return UIManager.getViewManagerConfig('UnityPlayTsView').Commands[cmd];
