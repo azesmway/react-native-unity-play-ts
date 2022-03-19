@@ -14,6 +14,11 @@ RCT_EXPORT_MODULE(UnityPlayTsView)
 - (UIView *)view
 {
     UnityPlayTsView *unity = [UnityPlayTsView new];
+    UIWindow * main = [[[UIApplication sharedApplication] delegate] window];
+
+    if(main != nil) {
+        [main makeKeyAndVisible];
+    }
 
     return unity;
 }
