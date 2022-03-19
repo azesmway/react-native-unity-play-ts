@@ -22,6 +22,7 @@ interface IMessage {
 
 const Unity = () => {
   const unityRef = useRef();
+
   const message: IMessage = {
     gameObject: 'gameObject',
     methodName: 'methodName',
@@ -29,11 +30,9 @@ const Unity = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (unityRef && unityRef.current) {
-        unityRef.current.postMessage(message);
-      }
-    }, 6000);
+    if (unityRef && unityRef.current) {
+      unityRef.current.postMessage(message);
+    }
   }, []);
 
   return <UnityPlayView ref={unityRef} style={{ flex: 1 }} />;
@@ -42,6 +41,14 @@ const Unity = () => {
 export default Unity;
 
 ```
+
+### iOS
+
+1. Build Unity app to `[project_root]/unity/builds/ios`
+2. Add `Unity-iPhone.xcodeproj` to your workspace: `Menu` -> `File` -> `Add Files to [workspace_name]...` -> `[project_root]/unity/builds/ios/Unity-iPhone.xcodeproj`
+3. Add `UnityFramework.framework` to `Frameworks, Libraries, and Embedded Content`:
+4. Select Data folder and set a checkbox in the "Target Membership" section to "UnityFramework"
+
 
 ## Contributing
 
