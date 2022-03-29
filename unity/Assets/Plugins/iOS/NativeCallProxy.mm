@@ -15,7 +15,6 @@ extern "C"
 {
     void sendMessageToMobileApp(const char* message)
     {
-        NSLog(@"sendMessageToMobileApp %s", message);
         return [api sendMessageToMobileApp:[NSString stringWithUTF8String:message]];
     }
 }
