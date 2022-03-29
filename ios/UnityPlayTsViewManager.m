@@ -1,8 +1,7 @@
-#import <React/RCTViewManager.h>
-#import <UnityPlayTsView.h>
-
+#import <Foundation/Foundation.h>
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
+#import <UnityPlayTsView.h>
 
 @interface UnityPlayTsViewManager : RCTViewManager
 @end
@@ -10,6 +9,11 @@
 @implementation UnityPlayTsViewManager
 
 RCT_EXPORT_MODULE(UnityPlayTsView)
+RCT_EXPORT_VIEW_PROPERTY(onUnityMessage, RCTBubblingEventBlock)
+
+- (NSArray<NSString *> *)supportedEvents {
+    return @[@"onUnityMessage"];
+}
 
 - (UIView *)view
 {
@@ -27,7 +31,6 @@ RCT_EXPORT_MODULE(UnityPlayTsView)
 {
     return dispatch_get_main_queue();
 }
-
 
 + (BOOL)requiresMainQueueSetup
 {

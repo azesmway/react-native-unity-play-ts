@@ -4,9 +4,16 @@ import {
   UIManager,
   findNodeHandle,
   Platform,
+  NativeSyntheticEvent,
 } from 'react-native';
 
-type UnityPlayTsProps = {};
+interface UnityMessage {
+  message: string;
+}
+
+type UnityPlayTsProps = {
+  onUnityMessage?: (event: NativeSyntheticEvent<UnityMessage>) => void;
+};
 
 const ComponentName = 'UnityPlayTsView';
 

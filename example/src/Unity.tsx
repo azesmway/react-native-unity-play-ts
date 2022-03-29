@@ -23,7 +23,15 @@ const Unity = () => {
     }, 6000);
   }, []);
 
-  return <UnityPlayView ref={unityRef} style={{ flex: 1 }} />;
+  return (
+    <UnityPlayView
+      ref={unityRef}
+      style={{ flex: 1 }}
+      onUnityMessage={(result) =>
+        console.log('onUnityMessage', result.nativeEvent.message)
+      }
+    />
+  );
 };
 
 export default Unity;

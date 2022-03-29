@@ -34,7 +34,7 @@ static id<RNUnityFramework> Unity_ufw;
     }
     [framework setDataBundleId: [bundle.bundleIdentifier cStringUsingEncoding:NSUTF8StringEncoding]];
 
-    unsigned count = [[[NSProcessInfo processInfo] arguments] count];
+    unsigned count = (int) [[[NSProcessInfo processInfo] arguments] count];
     char **array = (char **)malloc((count + 1) * sizeof(char*));
 
     for (unsigned i = 0; i < count; i++)
@@ -53,10 +53,5 @@ static id<RNUnityFramework> Unity_ufw;
 - (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
 }
-
-- (NSArray<NSString *> *)supportedEvents {
-    return @[@"UnityMessage"];
-}
-
 
 @end

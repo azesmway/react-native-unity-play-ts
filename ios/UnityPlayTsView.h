@@ -1,10 +1,15 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTView.h>
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTBridgeModule.h>
+#import <UnityFramework/NativeCallProxy.h>
 
-@interface UnityPlayTsView : RCTView
+@interface UnityPlayTsView : RCTView <RCTBridgeModule, NativeCallsProtocol>
 
-@property (nonatomic, strong) UIView* uView;
+@property (nonatomic, strong) UIView* _Nullable uView;
 
-+ (void)UnityPostMessage:(NSString*)gameObject methodName:(NSString*)methodName message:(NSString*) message;
+@property (nonatomic, copy) RCTBubblingEventBlock _Nullable onUnityMessage;
+
++ (void)UnityPostMessage:(NSString* _Nonnull )gameObject methodName:(NSString* _Nonnull)methodName message:(NSString* _Nonnull) message;
 
 @end

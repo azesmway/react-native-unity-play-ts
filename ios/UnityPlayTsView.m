@@ -10,6 +10,7 @@ NSDictionary* appLaunchOpts;
     self = [super initWithFrame:frame];
     if (self) {
         _uView = [[[UnityPlayTs launchWithOptions:appLaunchOpts] appController] rootView];
+        [FrameworkLibAPI registerAPIforNativeCalls:self];
     }
     return self;
 }
@@ -36,6 +37,16 @@ NSDictionary* appLaunchOpts;
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UnityPlayTs ufw] sendMessageToGOWithName:[gameObject UTF8String] functionName:[methodName UTF8String] message:[message UTF8String]];
     });
+}
+
+- (void)sendMessageToMobileApp:(NSString *)message {
+    if (self.onUnityMessage) {
+        NSDictionary* data = @{
+            @"message": message
+        };
+
+        self.onUnityMessage(data);
+    }
 }
 
 @end

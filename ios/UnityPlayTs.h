@@ -9,7 +9,6 @@
 
 @end
 
-
 @protocol RNUnityFramework <NSObject>
 
 + (id<RNUnityFramework>)getInstance;
@@ -32,17 +31,11 @@
 
 @end
 
-
 @interface UnityPlayTs : RCTEventEmitter <RCTBridgeModule>
 
 @property (atomic, class) id<RNUnityFramework> ufw;
 
 + (id<RNUnityFramework>)launchWithOptions:(NSDictionary*)launchOptions;
-
-//+ (void)setReceiverHandshake:(unity_receive_handshake)receiverHandshake
-//             receiverCommand:(unity_receive_command)receiverCommand;
-//
-//+ (void)sendMessage:(const char *)message;
 
 @end
 
