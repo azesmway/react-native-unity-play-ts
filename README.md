@@ -31,7 +31,7 @@ const Unity = () => {
 
   useEffect(() => {
     if (unityRef && unityRef.current) {
-      unityRef.current.postMessage(message);
+      unityRef.current.postMessage(message.gameObject, message.methodName, message.message);
     }
   }, []);
 
